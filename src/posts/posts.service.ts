@@ -1,4 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { PostsModel } from './entities/posts.entity';
 export interface PostsModel {
   id: number;
   author: string;
@@ -45,8 +48,14 @@ let posts: PostsModel[] = [
 
 @Injectable()
 export class PostsService {
-  getAllPosts() {
-    return posts;
+  constructor(
+    // @InjectRepository 데코레이터를 사용하여 PostsModel 엔티티에 대한 Repository를 주입받는다
+    @InjectRepository(PostsModel)
+    private readonly postsRepository: Repository<PostsModel>,
+  ) {}
+
+  async getAllPosts() {
+    return this.postsRepository.find();
   }
   getPostById(id: number) {
     const post = posts.find((post) => post.id === Number(id));
