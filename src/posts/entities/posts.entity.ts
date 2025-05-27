@@ -9,7 +9,7 @@ export class PostsModel {
   @Column()
   title: string;
   @Column()
-  contetnt: string;
+  content: string;
   @Column()
   likeCount: number;
   @Column()
