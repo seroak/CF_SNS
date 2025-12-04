@@ -29,7 +29,7 @@ export class PostsController {
   // 새로운 post를 생성한다
   @Post()
   postPosts(
-    @Body('author') author: string,
+    @Body('authorId') author: number,
     @Body('title') title: string,
     @Body('content') content: string,
   ) {
@@ -40,11 +40,10 @@ export class PostsController {
   @Put(':id')
   putPosts(
     @Param('id') id: string,
-    @Body('author') author?: string,
     @Body('title') title?: string,
     @Body('content') content?: string,
   ) {
-    return this.postsService.updatePost(+id, author, title, content);
+    return this.postsService.updatePost(+id, title, content);
   }
   // 5)DELETE /posts/:id
   // 특정 id를 가진 post를 삭제한다
